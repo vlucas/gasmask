@@ -1,0 +1,25 @@
+{
+  "name": "gasmask",
+  "version": "1.0.0",
+  "description": "Mocks for Google Apps Script (GAS)",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepack": "npm run clean && npm run build"
+  },
+  "keywords": [
+    "gas",
+    "google",
+    "apps",
+    "script",
+    "google",
+    "mocks"
+  ],
+  "author": "Vance Lucas <vance@vancelucas.com>",
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "typescript": "^4.1.3"
+  }
+}
