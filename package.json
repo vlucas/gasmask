@@ -1,6 +1,6 @@
 {
   "name": "gasmask",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Mocks for Google Apps Script (GAS)",
   "main": "src/index.js",
   "scripts": {
