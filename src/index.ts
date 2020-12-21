@@ -1,7 +1,5 @@
-import SpreadsheetApp from './SpreadsheetApp'
-import Logger from './Logger'
+import { SpreadsheetApp as SpreadsheetAppInstance } from './SpreadsheetApp';
+import LoggerClass from './Logger';
 
-export default {
-  Logger,
-  SpreadsheetApp,
-}
+export const SpreadsheetApp = SpreadsheetAppInstance;
+export const Logger = new LoggerClass();
