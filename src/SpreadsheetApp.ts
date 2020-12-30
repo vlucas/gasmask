@@ -7,12 +7,11 @@ import RangeClass from './SpreadsheetApp/Range';
  */
 export class SpreadsheetAppClass {
   static getActiveSpreadsheet() {
-    return new Spreadsheet();
+    return Spreadsheet;
   }
 }
 
 export const SpreadsheetApp = SpreadsheetAppClass;
-
 export const Spreadsheet = SpreadsheetClass;
 export const Sheet = SheetClass;
 export const Range = RangeClass;
