@@ -7,7 +7,7 @@ import RangeClass from './SpreadsheetApp/Range';
  */
 export class SpreadsheetAppClass {
   static getActiveSpreadsheet() {
-    return Spreadsheet;
+    return new SpreadsheetClass();
   }
 }
 
