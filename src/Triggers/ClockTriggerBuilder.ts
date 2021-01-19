@@ -6,9 +6,11 @@ import Trigger from '../Trigger';
  */
 export default class ClockTriggerBuilder {
   protected _functionName: string;
+  protected _onCreateTrigger?: (trigger: Trigger) => void;
 
-  constructor(functionName: string) {
+  constructor(functionName: string, onCreateTrigger?: (trigger: Trigger) => void) {
     this._functionName = functionName;
+    this._onCreateTrigger = onCreateTrigger;
   }
 
   /**
@@ -49,7 +51,13 @@ export default class ClockTriggerBuilder {
    * Creates the trigger.
    */
   create(): Trigger {
-    return new Trigger(this._functionName);
+    const trigger = new Trigger(this._functionName);
+
+    if (this._onCreateTrigger) {
+      this._onCreateTrigger(trigger);
+    }
+
+    return trigger;
   }
 
   /**
