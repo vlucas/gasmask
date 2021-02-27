@@ -12,4 +12,7 @@ export default class Range {
 
   setValues(values: string[]) { this.values = values; }
   getValues() { return this.values; }
+
+  setFontWeight(weight: string) {}
+  setNumberFormat(format: string) {}
 }
