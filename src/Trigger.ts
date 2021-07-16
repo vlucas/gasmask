@@ -5,8 +5,8 @@ enum EventType {
   CLOCK,
   FORMS,
   DOCUMENTS,
-  CALENDAR
-};
+  CALENDAR,
+}
 
 /**
  * ScriptApp Trigger
@@ -33,7 +33,7 @@ export default class Trigger {
     return this._functionName;
   }
 
-  getTriggerSource(): EventType	{
+  getTriggerSource(): EventType {
     return this._triggerSource;
   }
 
@@ -45,4 +45,3 @@ export default class Trigger {
     return this._id;
   }
 }
-

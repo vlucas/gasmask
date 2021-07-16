@@ -1,4 +1,3 @@
 export default interface StringDict {
-  [key: string]: string
+  [key: string]: string;
 }
-

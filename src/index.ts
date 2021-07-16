@@ -15,4 +15,3 @@ export const ScriptApp = ScriptAppClass;
 export const SpreadsheetApp = SpreadsheetAppInstance;
 export const UrlFetchApp = UrlFetchAppClass;
 export type HttpRequest = HttpRequestType;
-

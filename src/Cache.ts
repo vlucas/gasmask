@@ -1,44 +1,46 @@
 export interface CacheData {
- [key: string] : string
+  [key: string]: string;
 }
 
 export default class Cache {
-  private _data: CacheData
+  private _data: CacheData;
 
-  constructor () {
-    this._data = {}
+  constructor() {
+    this._data = {};
   }
 
-  get (key: string) {
-    return this._data[key] || null
+  get(key: string) {
+    return this._data[key] || null;
   }
 
-  getAll (keys: string[] = []) {
-    if (!keys.length) return this._data
+  getAll(keys: string[] = []) {
+    if (!keys.length) return this._data;
 
-    return this._filterByKeys(key => keys.includes(key))
+    return this._filterByKeys((key) => keys.includes(key));
   }
 
-  put (key: string, value: string) {
-    this._data[key] = value
+  put(key: string, value: string) {
+    this._data[key] = value;
   }
 
-  putAll (values = {}) {
-    this._data = Object.assign(this._data, values)
+  putAll(values = {}) {
+    this._data = Object.assign(this._data, values);
   }
 
-  remove (key: string) {
-    delete this._data[key]
+  remove(key: string) {
+    delete this._data[key];
   }
 
-  removeAll (keys: string[] = []) {
-    this._data = this._filterByKeys(key => !keys.includes(key))
+  removeAll(keys: string[] = []) {
+    this._data = this._filterByKeys((key) => !keys.includes(key));
   }
 
-  _filterByKeys (filerFn: (key: string) => boolean) {
-    return Object.assign({}, ...Object.keys(this._data)
-      .filter(filerFn)
-      .map(k => ({ [k]: this._data[k] })))
+  _filterByKeys(filerFn: (key: string) => boolean) {
+    return Object.assign(
+      {},
+      ...Object.keys(this._data)
+        .filter(filerFn)
+        .map((k) => ({ [k]: this._data[k] }))
+    );
   }
 }
-

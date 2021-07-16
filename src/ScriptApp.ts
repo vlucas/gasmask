@@ -19,12 +19,9 @@ export default class ScriptApp {
 
   static newTrigger(functionName: string): TriggerBuilder {
     const pusher = (trigger: Trigger) => _triggers.push(trigger);
-    
+
     return new TriggerBuilder(functionName, pusher);
   }
 
-  static deleteTrigger(trigger: Trigger): void {
-
-  }
+  static deleteTrigger(trigger: Trigger): void {}
 }
-

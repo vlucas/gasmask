@@ -23,4 +23,3 @@ export const SpreadsheetApp = SpreadsheetAppClass;
 export const Spreadsheet = SpreadsheetClass;
 export const Sheet = SheetClass;
 export const Range = RangeClass;
-

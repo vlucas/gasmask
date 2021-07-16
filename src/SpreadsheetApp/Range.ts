@@ -1,15 +1,15 @@
 export interface RangeOptions {
-  a1?: string,
-  row?: number,
-  col?: number,
-  numRows?: number,
-  numColumns?: number,
+  a1?: string;
+  row?: number;
+  col?: number;
+  numRows?: number;
+  numColumns?: number;
 }
 export interface RangeComputed {
-  row: number,
-  col: number,
-  numRows: number,
-  numColumns: number,
+  row: number;
+  col: number;
+  numRows: number;
+  numColumns: number;
 }
 
 export default class Range {
@@ -45,11 +45,19 @@ export default class Range {
     this.rangeValues = getValuesWithCriteria(this.values, this.rangeComputed);
   }
 
-  setValue(value: string) { this.value = value; }
-  getValue() { return this.value; }
+  setValue(value: string) {
+    this.value = value;
+  }
+  getValue() {
+    return this.value;
+  }
 
-  setValues(values: string[]) { this.values = values; }
-  getValues() { return this.rangeValues; }
+  setValues(values: string[]) {
+    this.values = values;
+  }
+  getValues() {
+    return this.rangeValues;
+  }
 
   setFontWeight(weight: string) {}
   setNumberFormat(format: string) {}
@@ -60,7 +68,7 @@ export default class Range {
  */
 function getValuesWithCriteria(values: any[], c: RangeComputed): any[] {
   const rows = values.slice(c.row, c.row + c.numRows);
-  const result = rows.map(row => row.slice(c.col, c.col + c.numColumns));
+  const result = rows.map((row) => row.slice(c.col, c.col + c.numColumns));
 
   return result;
 }
@@ -91,4 +99,3 @@ function letterToColumn(letter: string) {
 
   return column;
 }
-

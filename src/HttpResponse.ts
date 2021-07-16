@@ -5,18 +5,12 @@ export default class HttpResponse {
     return {};
   }
 
-  getAs(contentType: string) {
+  getAs(contentType: string) {}
 
-  }
-
-  getBlob() {
-
-  }
+  getBlob() {}
 
   // Returns raw binary type
-  getContent() {
-
-  }
+  getContent() {}
 
   getContentText(charset: string = 'utf-8'): string {
     return '';
@@ -30,4 +24,3 @@ export default class HttpResponse {
     return 0;
   }
 }
-

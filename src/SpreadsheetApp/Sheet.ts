@@ -18,7 +18,9 @@ export default class Sheet {
   }
   autoResizeColumn(colNumber: number) {}
 
-  getName() { return this.name; }
+  getName() {
+    return this.name;
+  }
   deleteRow() {}
 
   getLastColumn() {
@@ -29,21 +31,33 @@ export default class Sheet {
   }
 
   /**
+   * @link https://developers.google.com/apps-script/reference/spreadsheet/sheet#getDataRange()
+   */
+  getDataRange() {
+    return this.getRange(1, 1, this.getLastRow(), this.getLastColumn());
+  }
+
+  /**
    * getRange(row, column)
    * getRange(row, column, numRows)
    * getRange(row, column, numRows, numColumns)
    * getRange(a1Notation)
    */
-  getRange(row: Number, column: Number): Range
-  getRange(row: Number, column: Number, numRows: Number): Range
-  getRange(row: Number, column: Number, numRows: Number, numColumns: Number): Range
-  getRange(a1: string): Range
+  getRange(row: Number, column: Number): Range;
+  getRange(row: Number, column: Number, numRows: Number): Range;
+  getRange(row: Number, column: Number, numRows: Number, numColumns: Number): Range;
+  getRange(a1: string): Range;
   getRange(row: string | Number, col?: Number, numRows?: Number, numColumns?: Number): Range {
     if (typeof row === 'string') {
       return new Range(this.rows, { a1: row } as RangeOptions);
     }
 
-    return new Range(this.rows, { row, col, numRows, numColumns } as RangeOptions);
+    return new Range(this.rows, {
+      row,
+      col,
+      numRows,
+      numColumns,
+    } as RangeOptions);
   }
 
   getSheetValues(startRow: Number, startColumn: Number, numRows: Number, numColumns: Number) {
@@ -56,7 +70,8 @@ export default class Sheet {
   setFrozenRows(rows: number) {
     this.frozenRows = rows;
   }
-  setName(name: string) { this.name = name; }
+  setName(name: string) {
+    this.name = name;
+  }
   showSheet() {}
 }
-

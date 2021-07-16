@@ -4,11 +4,13 @@ import HttpResponse from './HttpResponse';
 
 export default class UrlFetchApp {
   static fetch(url: string, params: StringDict | HttpRequest = {}): HttpResponse {
-    throw new Error('Fetch not implemented. Mock/stub this with jest.spyOn(), sinon.stub(), or similar.');
+    throw new Error(
+      'Fetch not implemented. Mock/stub this with jest.spyOn(), sinon.stub(), or similar.'
+    );
   }
 
   static fetchAll(requests: HttpRequest[]) {
-    return requests.map(request => {
+    return requests.map((request) => {
       const { url, ...params } = request;
 
       return UrlFetchApp.fetch(url, request);
@@ -23,4 +25,3 @@ export default class UrlFetchApp {
     };
   }
 }
-

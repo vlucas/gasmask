@@ -2,9 +2,9 @@ import Cache from './Cache';
 
 // Setup properties so they remian constant to scope
 const _cache = {
-  'documentCache': new Cache(),
-  'scriptCache': new Cache(),
-  'userCache': new Cache(),
+  documentCache: new Cache(),
+  scriptCache: new Cache(),
+  userCache: new Cache(),
 };
 
 /**
@@ -24,4 +24,3 @@ export default class CacheService {
     return _cache['userCache'];
   }
 }
-

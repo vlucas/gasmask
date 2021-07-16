@@ -6,4 +6,3 @@ export default class Logger {
     console.log(...args);
   }
 }
-

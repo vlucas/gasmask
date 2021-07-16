@@ -13,7 +13,7 @@ const sheetData = [
 
 beforeEach(() => {
   sheet = new Sheet('TestSheet');
-  sheetData.forEach(row => sheet.appendRow(row));
+  sheetData.forEach((row) => sheet.appendRow(row));
 });
 
 describe('Sheet', () => {
@@ -30,6 +30,12 @@ describe('Sheet', () => {
   describe('getLastColumn', () => {
     it('should return accurate 1-based counted last column', () => {
       expect(sheet.getLastColumn()).toBe(sheetData[0].length);
+    });
+  });
+
+  describe('getDataRange', () => {
+    it('should return full data range of the current spreadsheet', () => {
+      expect(sheet.getDataRange().getValues()).toEqual(sheetData);
     });
   });
 
@@ -71,4 +77,3 @@ describe('Sheet', () => {
     });
   });
 });
-
