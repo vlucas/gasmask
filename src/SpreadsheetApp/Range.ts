@@ -24,16 +24,14 @@ export default class Range {
     this.criteria = criteria;
 
     if (criteria.a1) {
-      const a1Parts = criteria.a1.split(':');
-      const parsed1 = a1NotationToRowCol(a1Parts[0]);
-      const parsed2 = a1Parts[1] ? a1NotationToRowCol(a1Parts[1]) : { row: 1, col: 1 };
-
       this.rangeComputed = {
-        row: parsed1.row - 1,
-        col: parsed1.col - 1,
-        numRows: parsed2.row || 1,
-        numColumns: parsed2.col || 1,
+        row: 0,
+        col: 0,
+        numRows: 0,
+        numColumns: 0,
       };
+      this.rangeValues = getValuesFromA1Notation(this.values, criteria.a1);
+      return;
     } else {
       this.rangeComputed = {
         row: criteria.row ? criteria.row - 1 : 0,
@@ -59,8 +57,10 @@ export default class Range {
     return this.rangeValues;
   }
 
+  // @TODO: All of these...
   setFontWeight(weight: string) {}
   setNumberFormat(format: string) {}
+  setDataValidation(rule: any) {}
 }
 
 /**
@@ -69,22 +69,6 @@ export default class Range {
 function getValuesWithCriteria(values: any[], c: RangeComputed): any[] {
   const rows = values.slice(c.row, c.row + c.numRows);
   const result = rows.map((row) => row.slice(c.col, c.col + c.numColumns));
-
-  return result;
-}
-
-const A1Regex = /(^[A-Z]+)|([0-9]+$)/gm;
-export function a1NotationToRowCol(a1Notation: string) {
-  const a1Parts = a1Notation.match(A1Regex);
-
-  if (!a1Parts) {
-    throw Error('Invalid A1 notation');
-  }
-
-  const rowLetter = a1Parts[0] || 'A';
-  const col = a1Parts[1] ? parseInt(a1Parts[1]) : 1;
-  const row = letterToColumn(rowLetter);
-  const result = { row, col };
 
   return result;
 }
@@ -98,4 +82,53 @@ function letterToColumn(letter: string) {
   }
 
   return column;
+}
+
+/**
+ * @link https://stackoverflow.com/a/58545538
+ */
+function getValuesFromA1Notation(values: any[][], textRange: string): any[][] {
+  let startRow: number, startCol: number, endRow: number, endCol: number;
+  let range = textRange.split(':');
+  let ret = cellToRoWCol(range[0]);
+  startRow = ret[0];
+  startCol = ret[1];
+  if (startRow == -1) {
+    startRow = 0;
+  }
+  if (startCol == -1) {
+    startCol = 0;
+  }
+
+  if (range[1]) {
+    ret = cellToRoWCol(range[1]);
+    endRow = ret[0];
+    endCol = ret[1];
+    if (endRow == -1) {
+      endRow = values.length;
+    }
+    if (endCol == -1) {
+      endCol = values.length;
+    }
+  } else {
+    // only one cell
+    endRow = startRow;
+    endCol = startCol;
+  }
+
+  return values.slice(startRow, endRow + 1).map(function (i: any[]) {
+    return i.slice(startCol, endCol + 1);
+  });
+}
+
+function cellToRoWCol(cell: string): [number, number] {
+  // returns row & col from A1 notation
+  let row = Number(cell.replace(/[^0-9]+/g, ''));
+  const letter = cell.replace(/[^a-zA-Z]+/g, '').toUpperCase();
+  let column = letterToColumn(letter);
+
+  row = row - 1;
+  column--;
+
+  return [row, column];
 }

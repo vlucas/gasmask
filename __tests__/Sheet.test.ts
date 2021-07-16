@@ -65,13 +65,13 @@ describe('Sheet', () => {
     });
 
     it('getRange with A1 for single row', () => {
-      const range = sheet.getRange('A1:A4');
+      const range = sheet.getRange('A1:F1');
 
       expect(range.getValues()).toEqual([['Date', 'Amount', 'Name', 'Category']]);
     });
 
     it('getRange with A1 for multiple rows', () => {
-      const range = sheet.getRange('A1:F4');
+      const range = sheet.getRange('A1:F6');
 
       expect(range.getValues()).toEqual(sheetData);
     });

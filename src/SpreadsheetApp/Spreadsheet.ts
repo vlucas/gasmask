@@ -21,6 +21,12 @@ export default class Spreadsheet {
     }
   }
 
+  getActiveSheet() {
+    const firstSheet = Object.keys(this.sheets)[0];
+
+    return this.sheets[firstSheet];
+  }
+
   getSheetId() {
     return this.id;
   }

@@ -12,11 +12,17 @@ export class SpreadsheetAppClass {
     return activeSpreadsheet;
   }
 
+  static getActiveSheet() {
+    return activeSpreadsheet.getActiveSheet();
+  }
+
   static create(name: string, rows?: number, cols?: number) {
     activeSpreadsheet = new SpreadsheetClass(name, rows, cols);
 
     return activeSpreadsheet;
   }
+
+  static flush() {}
 }
 
 export const SpreadsheetApp = SpreadsheetAppClass;
