@@ -14,6 +14,10 @@ export default class Spreadsheet {
     this.name = name || this.id;
   }
 
+  getId() {
+    return this.id;
+  }
+
   deleteSheet(sheet: Sheet) {
     const foundSheetKey = Object.keys(this.sheets).filter((key) => this.sheets[key] === sheet)[0];
 
