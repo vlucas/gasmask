@@ -1,11 +1,12 @@
 import Sheet from './Sheet';
+import User from '../User';
 import { randomIntegerWithLength } from '../_utils';
 
 /**
  * Spreadsheet class (whole spreadsheet, collection of many Sheets)
  */
 export default class Spreadsheet {
-  id: string = String(randomIntegerWithLength(16));
+  id: string = 'docId_' + String(randomIntegerWithLength(16));
   name: string = '';
   sheets: { [name: string]: Sheet } = {};
 
@@ -25,6 +26,10 @@ export default class Spreadsheet {
     const firstSheet = Object.keys(this.sheets)[0];
 
     return this.sheets[firstSheet];
+  }
+
+  getOwner() {
+    return new User('owner@example.com');
   }
 
   getSheetId() {
