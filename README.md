@@ -40,7 +40,7 @@ Assuming you are trying to test a method that shows a simple toast message:
 Just import what you need to use in your tests:
 
 ```javascript
-import { Spreadsheet } from 'gasmask/dist/SpreadsheetApp';
+import { Spreadsheet } from 'gasmask';
 
 describe('showToastMessage', () => {
   it('should display a toast message to the user', () => {
@@ -54,6 +54,4 @@ describe('showToastMessage', () => {
     expect(mockToast).toBeCalledWith(testMessage, 'My Add-On');
   });
 });
-
 ```
-

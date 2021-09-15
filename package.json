@@ -19,6 +19,7 @@
     "mocks"
   ],
   "author": "Vance Lucas <vance@vancelucas.com>",
+  "homepage": "https://github.com/vlucas/gasmask",
   "license": "BSD-3-Clause",
   "devDependencies": {
     "@types/jest": "^26.0.19",
