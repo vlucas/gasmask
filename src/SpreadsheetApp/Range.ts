@@ -1,3 +1,5 @@
+import Sheet from './Sheet';
+
 export interface RangeOptions {
   a1?: string;
   row?: number;
@@ -13,13 +15,15 @@ export interface RangeComputed {
 }
 
 export default class Range {
+  __sheet: Sheet;
   criteria: RangeOptions;
   value: any | undefined;
   values: any[] = [];
   rangeValues: any[] = [];
   rangeComputed: RangeComputed;
 
-  constructor(values: any[], criteria: RangeOptions) {
+  constructor(values: any[], criteria: RangeOptions, __sheet: Sheet) {
+    this.__sheet = __sheet;
     this.values = values;
     this.criteria = criteria;
 
@@ -45,6 +49,12 @@ export default class Range {
 
   setValue(value: string) {
     this.value = value;
+
+    // Update Sheet
+    if (this.__sheet) {
+      const rc = this.rangeComputed;
+      this.__sheet.rows[rc.row + 1][rc.col] = value;
+    }
   }
   getValue() {
     return this.value;
@@ -52,6 +62,13 @@ export default class Range {
 
   setValues(values: string[]) {
     this.values = values;
+
+    // Update Sheet
+    if (this.__sheet) {
+      const rc = this.rangeComputed;
+      this.__sheet.rows[rc.row + 1] = values;
+      this.rangeValues = getValuesWithCriteria(this.values, this.rangeComputed);
+    }
   }
   getValues() {
     return this.rangeValues;

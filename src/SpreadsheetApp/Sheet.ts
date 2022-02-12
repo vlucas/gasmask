@@ -49,15 +49,19 @@ export default class Sheet {
   getRange(a1: string): Range;
   getRange(row: string | Number, col?: Number, numRows?: Number, numColumns?: Number): Range {
     if (typeof row === 'string') {
-      return new Range(this.rows, { a1: row } as RangeOptions);
+      return new Range(this.rows, { a1: row } as RangeOptions, this);
     }
 
-    return new Range(this.rows, {
-      row,
-      col,
-      numRows,
-      numColumns,
-    } as RangeOptions);
+    return new Range(
+      this.rows,
+      {
+        row,
+        col,
+        numRows,
+        numColumns,
+      } as RangeOptions,
+      this
+    );
   }
 
   getSheetValues(startRow: Number, startColumn: Number, numRows: Number, numColumns: Number) {

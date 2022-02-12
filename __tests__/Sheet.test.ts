@@ -75,5 +75,17 @@ describe('Sheet', () => {
 
       expect(range.getValues()).toEqual(sheetData);
     });
+
+    it('getRange returns range that updates values back to sheet', () => {
+      const range = sheet.getRange('A2:F2');
+
+      expect(range.getValues()).toEqual([['2021-01-01', 5.32, 'Kwickiemart', 'Shops']]);
+
+      // Update values and re-select new range from sheet
+      range.setValues(['2021-01-01', '6.32', 'Kwickiemart', 'Shops Also']);
+
+      const newRange = sheet.getRange('A2:F2');
+      expect(newRange.getValues()).toEqual([['2021-01-01', '6.32', 'Kwickiemart', 'Shops Also']]);
+    });
   });
 });
