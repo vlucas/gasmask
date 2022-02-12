@@ -60,13 +60,15 @@ export default class Range {
     return this.value;
   }
 
-  setValues(values: string[]) {
+  setValues(values: string[][]) {
     this.values = values;
 
     // Update Sheet
     if (this.__sheet) {
       const rc = this.rangeComputed;
-      this.__sheet.rows[rc.row + 1] = values;
+      for (let row = 0; row < values.length; row++) {
+        this.__sheet.rows[rc.row + 1] = values[row];
+      }
       this.rangeValues = getValuesWithCriteria(this.values, this.rangeComputed);
     }
   }

@@ -3,7 +3,7 @@ import type { RangeOptions } from './Range';
 
 export default class Sheet {
   name: string | null;
-  rows: any[];
+  rows: any[][];
   frozenCols: number | null = null;
   frozenRows: number | null = null;
 
