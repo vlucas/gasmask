@@ -67,6 +67,15 @@ export default class Range {
     if (this.__sheet) {
       const rc = this.rangeComputed;
       for (let row = 0; row < values.length; row++) {
+        const currentValues = this.__sheet.rows[rc.row + 1];
+
+        // Range length check... (GAS does this too)
+        if (currentValues.length !== values[row].length) {
+          throw new Error(
+            `The number of columns in the data does not match the number of columns in the range. The data has ${values[row].length} but the range has ${currentValues.length}.`
+          );
+        }
+
         this.__sheet.rows[rc.row + 1] = values[row];
       }
       this.rangeValues = getValuesWithCriteria(this.values, this.rangeComputed);

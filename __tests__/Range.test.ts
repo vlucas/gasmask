@@ -23,4 +23,21 @@ describe('Range', () => {
     expect(values).toEqual([[1], [1], [1], [1], [1]]);
     expect(sum).toEqual(5);
   });
+
+  describe('setValues', () => {
+    it('should throw error when range length does not match update', () => {
+      const range = sheet.getRange('A2:F2');
+
+      expect(range.getValues()).toEqual([['2021-01-01', 1, 'Kwickiemart', 'Shops']]);
+
+      try {
+        // Update values and re-select new range from sheet
+        range.setValues([['2021-01-01', '6.32', 'Kwickiemart', 'Shops Also', 'some extra column']]);
+      } catch (e) {
+        expect(e.message).toContain(
+          'The number of columns in the data does not match the number of columns in the range'
+        );
+      }
+    });
+  });
 });
