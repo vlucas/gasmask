@@ -55,7 +55,10 @@ export default class Range {
       const rc = this.rangeComputed;
       this.__sheet.rows[rc.row + 1][rc.col] = value;
     }
+
+    return this;
   }
+
   getValue() {
     return this.value;
   }
@@ -64,31 +67,41 @@ export default class Range {
     this.values = values;
 
     // Update Sheet
-    if (this.__sheet) {
+    if (this.__sheet && values) {
       const rc = this.rangeComputed;
       for (let row = 0; row < values.length; row++) {
-        const currentValues = this.__sheet.rows[rc.row + 1];
+        const dataValues = this.__sheet.rows[rc.row + 1];
+        const newValues = values[row];
 
         // Range length check... (GAS does this too)
-        if (currentValues.length !== values[row].length) {
+        if (dataValues && newValues && dataValues.length !== newValues.length) {
           throw new Error(
-            `The number of columns in the data does not match the number of columns in the range. The data has ${values[row].length} but the range has ${currentValues.length}.`
+            `The number of columns in the data does not match the number of columns in the range. The data has ${newValues.length} but the range has ${dataValues.length}.`
           );
         }
 
-        this.__sheet.rows[rc.row + 1] = values[row];
+        this.__sheet.rows[rc.row + 1] = newValues;
       }
       this.rangeValues = getValuesWithCriteria(this.values, this.rangeComputed);
     }
+
+    return this;
   }
+
   getValues() {
     return this.rangeValues;
   }
 
   // @TODO: All of these...
-  setFontWeight(weight: string) {}
-  setNumberFormat(format: string) {}
-  setDataValidation(rule: any) {}
+  setFontWeight(weight: string) {
+    return this;
+  }
+  setNumberFormat(format: string) {
+    return this;
+  }
+  setDataValidation(rule: any) {
+    return this;
+  }
 }
 
 /**
