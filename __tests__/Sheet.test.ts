@@ -65,26 +65,26 @@ describe('Sheet', () => {
     });
 
     it('getRange with A1 for single row', () => {
-      const range = sheet.getRange('A1:F1');
+      const range = sheet.getRange('A1:D1');
 
       expect(range.getValues()).toEqual([['Date', 'Amount', 'Name', 'Category']]);
     });
 
     it('getRange with A1 for multiple rows', () => {
-      const range = sheet.getRange('A1:F6');
+      const range = sheet.getRange('A1:D6');
 
       expect(range.getValues()).toEqual(sheetData);
     });
 
     it('getRange returns range that updates values back to sheet', () => {
-      const range = sheet.getRange('A2:F2');
+      const range = sheet.getRange('A2:D2');
 
       expect(range.getValues()).toEqual([['2021-01-01', 5.32, 'Kwickiemart', 'Shops']]);
 
       // Update values and re-select new range from sheet
       range.setValues([['2021-01-01', '6.32', 'Kwickiemart', 'Shops Also']]);
 
-      const newRange = sheet.getRange('A2:F2');
+      const newRange = sheet.getRange('A2:D2');
       expect(newRange.getValues()).toEqual([['2021-01-01', '6.32', 'Kwickiemart', 'Shops Also']]);
     });
   });

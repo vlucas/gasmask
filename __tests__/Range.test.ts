@@ -16,17 +16,31 @@ beforeEach(() => {
 });
 
 describe('Range', () => {
-  it('should return full column of values in a1 notation', () => {
-    const values = sheet.getRange('B2:B').getValues();
-    const sum = values.reduce((prev, amount) => prev + amount[0], 0);
+  describe('getValues', () => {
+    it('should return full column of values in a1 notation', () => {
+      const values = sheet.getRange('B2:B').getValues();
+      const sum = values.reduce((prev, amount) => prev + amount[0], 0);
 
-    expect(values).toEqual([[1], [1], [1], [1], [1]]);
-    expect(sum).toEqual(5);
+      expect(values).toEqual([[1], [1], [1], [1], [1]]);
+      expect(sum).toEqual(5);
+    });
+
+    it('should fill in values in rows with blanks when range is larger than values', () => {
+      const values = sheet.getRange('A1:J1').getValues();
+
+      expect(values[0].length).toEqual(10);
+    });
+
+    it('should fill in values in columns with blanks when range is larger than values', () => {
+      const values = sheet.getRange('A1:A10').getValues();
+
+      expect(values.length).toEqual(10);
+    });
   });
 
   describe('setValues', () => {
     it('should throw error when range length does not match update', () => {
-      const range = sheet.getRange('A2:F2');
+      const range = sheet.getRange('A2:D2');
 
       expect(range.getValues()).toEqual([['2021-01-01', 1, 'Kwickiemart', 'Shops']]);
 

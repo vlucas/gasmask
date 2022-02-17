@@ -65,18 +65,19 @@ export default class Range {
 
   setValues(values: string[][]) {
     this.values = values;
+    const rc = this.rangeComputed;
+    const currentValues = getValuesWithCriteria(this.values, this.rangeComputed);
 
     // Update Sheet
     if (this.__sheet && values) {
-      const rc = this.rangeComputed;
       for (let row = 0; row < values.length; row++) {
-        const dataValues = this.__sheet.rows[rc.row + 1];
+        const rowValues = this.__sheet.rows[rc.row + 1];
         const newValues = values[row];
 
         // Range length check... (GAS does this too)
-        if (dataValues && newValues && dataValues.length !== newValues.length) {
+        if (rowValues && newValues && rowValues.length !== newValues.length) {
           throw new Error(
-            `The number of columns in the data does not match the number of columns in the range. The data has ${newValues.length} but the range has ${dataValues.length}.`
+            `The number of columns in the data does not match the number of columns in the range. The data has ${newValues.length} but the range has ${rowValues.length}.`
           );
         }
 
@@ -157,7 +158,20 @@ function getValuesFromA1Notation(values: any[][], textRange: string): any[][] {
     endCol = startCol;
   }
 
+  // Not enough rows in our data?
+  if (values.length < endRow + 1) {
+    values = new Array(endRow + 1 - startRow).fill([]).map((emptyValue, index) => {
+      return values[index] || emptyValue;
+    });
+  }
+
   return values.slice(startRow, endRow + 1).map(function (i: any[]) {
+    if (i.length < endCol + 1) {
+      // Not enough cols in our data?
+      i = new Array(endCol + 1 - startCol).fill('').map((emptyValue, index) => {
+        return i[index] || emptyValue;
+      });
+    }
     return i.slice(startCol, endCol + 1);
   });
 }
