@@ -167,8 +167,9 @@ function getValuesFromA1Notation(values: any[][], textRange: string): any[][] {
 
   return values.slice(startRow, endRow + 1).map(function (i: any[]) {
     if (i.length < endCol + 1) {
+      const numCols = endCol + 1 - startCol;
       // Not enough cols in our data?
-      i = new Array(endCol + 1 - startCol).fill('').map((emptyValue, index) => {
+      i = new Array(numCols <= 0 ? endCol : numCols).fill('').map((emptyValue, index) => {
         return i[index] || emptyValue;
       });
     }
