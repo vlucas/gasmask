@@ -47,6 +47,14 @@ export default class Range {
     this.rangeValues = getValuesWithCriteria(this.values, this.rangeComputed);
   }
 
+  activate() {
+    return this;
+  }
+
+  activateAsCurrentCell() {
+    return this;
+  }
+
   setValue(value: string) {
     this.value = value;
 
