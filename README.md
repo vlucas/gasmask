@@ -7,7 +7,7 @@ Mocks and stubs/dummies for Google Apps Script (GAS).
 Google Apps Script add-ons (like [BudgetSheet](https://www.budgetsheet.net) - the add-on I am developing) make a of
 calls to globally available APIs that Google provides to your scripts. Unfortunately, Google does not provide any
 standard mocking library for these APIs, so individual library authors are left to mock those global libraries
-themselved in order to make their code unit testable.
+themselves in order to make their code unit testable.
 
 ## Focus
 
