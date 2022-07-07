@@ -68,6 +68,11 @@ export default class Range {
   }
 
   getValue() {
+    if (this.__sheet) {
+      const rc = this.rangeComputed;
+      return this.__sheet.rows[rc.row + 1][rc.col];
+    }
+
     return this.value;
   }
 
