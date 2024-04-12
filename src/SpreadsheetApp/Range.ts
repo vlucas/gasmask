@@ -60,8 +60,14 @@ export default class Range {
 
     // Update Sheet
     if (this.__sheet) {
-      const rc = this.rangeComputed;
-      this.__sheet.rows[rc.row + 1][rc.col] = value;
+      if (this.criteria.a1) {
+        const firstCell = this.criteria.a1.split(':')[0];
+        const [row, column] = cellToRoWCol(firstCell);
+        this.__sheet.rows[row][column] = value;
+      } else {
+        const rc = this.rangeComputed;
+        this.__sheet.rows[rc.row][rc.col] = value;
+      }
     }
 
     return this;
@@ -69,8 +75,12 @@ export default class Range {
 
   getValue() {
     if (this.__sheet) {
-      const rc = this.rangeComputed;
-      return this.__sheet.rows[rc.row + 1][rc.col];
+      if (this.criteria.a1) {
+        return this.rangeValues[0][0];
+      } else {
+        const rc = this.rangeComputed;
+        return this.__sheet.rows[rc.row][rc.col];
+      }
     }
 
     return this.value;
