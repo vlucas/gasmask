@@ -59,6 +59,11 @@ describe('Range', () => {
 
       expect(value).toEqual('Gasmart');
     });
+    it('should return value using a1 notation plus sheet reference', () => {
+      const value = sheet.getRange('TestSheet!C5').getValue();
+
+      expect(value).toEqual('Gasmart');
+    });
   });
 
   describe('setValues', () => {

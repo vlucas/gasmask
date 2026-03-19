@@ -202,8 +202,10 @@ function getValuesFromA1Notation(values: any[][], textRange: string): any[][] {
 
 function cellToRoWCol(cell: string): [number, number] {
   // returns row & col from A1 notation
-  let row = Number(cell.replace(/[^0-9]+/g, ''));
-  const letter = cell.replace(/[^a-zA-Z]+/g, '').toUpperCase();
+  // Ignore sheet name if present
+  const cellOnly = cell.split('!').slice(-1)[0];
+  let row = Number(cellOnly.replace(/[^0-9]+/g, ''));
+  const letter = cellOnly.replace(/[^a-zA-Z]+/g, '').toUpperCase();
   let column = letterToColumn(letter);
 
   row = row - 1;
