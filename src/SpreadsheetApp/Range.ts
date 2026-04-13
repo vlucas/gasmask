@@ -94,7 +94,7 @@ export default class Range {
     // Update Sheet
     if (this.__sheet && values) {
       for (let row = 0; row < values.length; row++) {
-        const rowValues = this.__sheet.rows[rc.row + 1];
+        const rowValues = this.__sheet.rows[rc.row + row];
         const newValues = values[row];
 
         // Range length check... (GAS does this too)
@@ -104,7 +104,7 @@ export default class Range {
           );
         }
 
-        this.__sheet.rows[rc.row + 1] = newValues;
+        this.__sheet.rows[rc.row + row] = newValues;
       }
       this.rangeValues = getValuesWithCriteria(this.values, this.rangeComputed);
     }
@@ -173,7 +173,7 @@ function getValuesFromA1Notation(values: any[][], textRange: string): any[][] {
       endRow = values.length;
     }
     if (endCol == -1) {
-      endCol = values.length;
+      endCol = (values[0]?.length ?? 1) - 1;
     }
   } else {
     // only one cell

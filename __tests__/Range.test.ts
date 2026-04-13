@@ -25,6 +25,12 @@ describe('Range', () => {
       expect(sum).toEqual(5);
     });
 
+    it('should return correct dimensions for whole-row end a1 notation', () => {
+      const values = sheet.getRange('A1:3').getValues();
+      expect(values.length).toEqual(3);
+      expect(values[0].length).toEqual(4);
+    });
+
     it('should fill in values in rows with blanks when range is larger than values', () => {
       const values = sheet.getRange('A1:J1').getValues();
 
@@ -67,19 +73,25 @@ describe('Range', () => {
   });
 
   describe('setValues', () => {
+    it('should update each row in the range', () => {
+      const newRows = [
+        ['2022-01-01', '10', 'Newmart', 'Food'],
+        ['2022-01-02', '20', 'Bestmart', 'Clothes'],
+        ['2022-01-03', '30', 'Cheapmart', 'Electronics'],
+      ];
+      sheet.getRange(2, 1, 3, 4).setValues(newRows);
+      const allRows = sheet.getDataRange().getValues();
+      expect(allRows.slice(1, 4)).toEqual(newRows); // written rows correct
+      expect(allRows[0]).toEqual(sheetData[0]);     // header untouched
+      expect(allRows[4]).toEqual(sheetData[4]);     // row after range untouched
+    });
+
     it('should throw error when range length does not match update', () => {
       const range = sheet.getRange('A2:D2');
 
-      expect(range.getValues()).toEqual([['2021-01-01', 1, 'Kwickiemart', 'Shops']]);
-
-      try {
-        // Update values and re-select new range from sheet
-        range.setValues([['2021-01-01', '6.32', 'Kwickiemart', 'Shops Also', 'some extra column']]);
-      } catch (e) {
-        expect(e.message).toContain(
-          'The number of columns in the data does not match the number of columns in the range'
-        );
-      }
+      expect(() =>
+        range.setValues([['2021-01-01', '6.32', 'Kwickiemart', 'Shops Also', 'some extra column']])
+      ).toThrow('The number of columns in the data does not match the number of columns in the range');
     });
   });
 
